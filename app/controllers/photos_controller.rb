@@ -10,7 +10,8 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = Photo.page(params[:page]).per(10)
+    @q = Photo.ransack(params[:q])
+    @photos = @q.result(:distinct => true).includes(:likes, :comments, :owner, :feed_follower, :commenters, :fans).page(params[:page]).per(10)
 
     render("photo_templates/index.html.erb")
   end
