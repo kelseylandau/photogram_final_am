@@ -12,6 +12,10 @@ class Photo < ApplicationRecord
 
   # Indirect associations
 
+  has_many   :feed_follower,
+             :through => :owner,
+             :source => :leaders
+
   # Validations
 
   validates :image, :presence => true
